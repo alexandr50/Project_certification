@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'production_plant',
     'products',
     'contacts',
+    'retail_network',
 
 ]
 

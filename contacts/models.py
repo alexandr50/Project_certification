@@ -11,6 +11,10 @@ class Contact(models.Model):
                                             on_delete=models.CASCADE,
                                             verbose_name='завод',
                                             blank=True, null=True)
+    retail_network = models.OneToOneField('retail_network.RetailNetwork',
+                                          on_delete=models.CASCADE,
+                                          verbose_name='розничная сеть',
+                                          blank=True, null=True)
 
     def __str__(self):
         return self.email
@@ -18,6 +22,3 @@ class Contact(models.Model):
     class Meta:
         verbose_name = 'контакт'
         verbose_name_plural = 'контакты'
-
-
-
