@@ -3,6 +3,8 @@ from django.contrib import admin
 from contacts.models import Contact
 
 
-@admin.register(Contact)
-class ContactAdmin(admin.ModelAdmin):
-    pass
+class ContactInline(admin.StackedInline):
+    model = Contact
+
+
+admin.site.register(Contact)

@@ -1,10 +1,10 @@
 from django.contrib import admin
 
 
-from products.admin import ContactInline
+from contacts.admin import ContactInline
 from .models import ProductionPlant
 
 
 @admin.register(ProductionPlant)
-class BankCardAdmin(admin.ModelAdmin):
+class ProductionPlantAdmin(admin.ModelAdmin):
     inlines = (ContactInline,)
