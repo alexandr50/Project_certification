@@ -1,7 +1,7 @@
 from django.contrib import admin
+from products.models import Product
 
-from contacts.models import Contact
 
-
-class ContactInline(admin.StackedInline):
-    model = Contact
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    pass
