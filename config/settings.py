@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'products',
     'contacts',
     'retail_network',
+    'solo_trader',
 
 ]
 

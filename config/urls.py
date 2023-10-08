@@ -23,4 +23,5 @@ urlpatterns = [
     path('production_plant/', include('production_plant.urls', namespace='production_plants')),
     path('products/', include('products.urls', namespace='products')),
     path('retail_networks/', include('retail_network.urls', namespace='retail_networks')),
+    path('solo_traders/', include('solo_trader.urls', namespace='solo_traders')),
 ]
