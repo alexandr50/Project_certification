@@ -12,7 +12,9 @@ class RetailNetwork(models.Model):
     supplier = models.ForeignKey('production_plant.ProductionPlant',
                                  default=None,
                                  on_delete=models.PROTECT,
-                                 verbose_name='поставщик')
+                                 verbose_name='поставщик',
+                                 blank=True,
+                                 null=True)
     debt = models.FloatField(default=0, verbose_name='задолженность')
 
     def __str__(self):

@@ -7,5 +7,5 @@ from .models import ProductionPlant
 
 @admin.register(ProductionPlant)
 class ProductionPlantAdmin(admin.ModelAdmin):
-    pass
+    list_filter = ('city',)
 
