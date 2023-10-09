@@ -1,4 +1,7 @@
 from django.contrib import admin
+
+from contacts.admin import ContactInline
+from production_plant.services import ContactCityFilter
 from retail_network.models import RetailNetwork
 
 
@@ -9,10 +12,8 @@ def clear_debt(modeladmin, request, queryset):
         obj.save()
 
 
+@admin.register(RetailNetwork)
 class RetailNetworkAdmin(admin.ModelAdmin):
-    list_filter = ('city',)
+    inlines = (ContactInline,)
+    list_filter = ('title', ContactCityFilter,)
     actions = [clear_debt]
-
-
-admin.site.register(RetailNetwork, RetailNetworkAdmin)
-
