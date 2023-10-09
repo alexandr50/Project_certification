@@ -15,6 +15,10 @@ class Contact(models.Model):
                                           on_delete=models.CASCADE,
                                           verbose_name='розничная сеть',
                                           blank=True, null=True)
+    solo_trader = models.OneToOneField('solo_trader.SoleTrader',
+                                       on_delete=models.CASCADE,
+                                       verbose_name='ип',
+                                       blank=True, null=True)
 
     def __str__(self):
         return self.email

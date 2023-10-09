@@ -14,6 +14,10 @@ class Product(models.Model):
                                        on_delete=models.PROTECT,
                                        verbose_name='розничная сеть',
                                        blank=True, null=True)
+    solo_trader = models.ForeignKey('solo_trader.SoleTrader',
+                                    on_delete=models.PROTECT,
+                                    verbose_name='ип',
+                                    blank=True, null=True)
 
     def __str__(self):
         return self.title
