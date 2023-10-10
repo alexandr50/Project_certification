@@ -5,16 +5,16 @@ class Product(models.Model):
     title = models.CharField(max_length=50, verbose_name='название')
     model = models.TextField(verbose_name='модель')
     release = models.DateField(verbose_name='дата выхода продукта на рынок')
-    production_plant = models.ForeignKey('production_plant.ProductionPlant',
+    production_plant_prod = models.ForeignKey('production_plant.ProductionPlant',
                                          on_delete=models.PROTECT,
                                          verbose_name='завод',
                                          blank=True,
                                          null=True)
-    retail_network = models.ForeignKey('retail_network.RetailNetwork',
+    retail_network_prod = models.ForeignKey('retail_network.RetailNetwork',
                                        on_delete=models.PROTECT,
                                        verbose_name='розничная сеть',
                                        blank=True, null=True)
-    solo_trader = models.ForeignKey('solo_trader.SoleTrader',
+    solo_trader_prod = models.ForeignKey('solo_trader.SoleTrader',
                                     on_delete=models.PROTECT,
                                     verbose_name='ип',
                                     blank=True, null=True)

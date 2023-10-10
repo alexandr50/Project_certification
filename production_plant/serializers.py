@@ -1,29 +1,45 @@
+from django.http import Http404
 from rest_framework import serializers
-
+from rest_framework.generics import get_object_or_404
+from django.db import IntegrityError
+from contacts.models import Contact
+from contacts.serializers import ContactSerializer
 from production_plant.models import ProductionPlant
 
 
 class ProductionPlantSerializer(serializers.ModelSerializer):
-    # contact = ContactSerializer()
-    #
-    # def create(self, validated_data):
-    #     data_for_contact = validated_data.pop('contact')
-    #     data_for_prod_pl = validated_data.pop('title')
-    #     prod_plant = ProductionPlant.objects.create(title=data_for_prod_pl)
-    #     Contact.objects.create(**data_for_contact, production_plant=prod_plant)
-    #     return prod_plant
-    #
-    # def update(self, instance, validated_data):
-    #     instance.title = validated_data.get("title", instance.title)
-    #     instance.contact.email = validated_data.get("title", instance.contact.email)
-    #     instance.contact.country = validated_data.get("title", instance.contact.country)
-    #     instance.contact.city = validated_data.get("title", instance.contact.city)
-    #     instance.contact.street = validated_data.get("title", instance.contact.street)
-    #     instance.contact.nuber_home = validated_data.get("title", instance.contact.number_home)
-    #     instance.contact.production_plant_id = validated_data.get("title", instance.contact.production_plant_id)
-    #     instance.save()
-    #     return instance
+    class Meta:
+        model = ProductionPlant
+        fields = ('title',)
+
+
+class ProductionPlantCreateSerializer(serializers.ModelSerializer):
+    contact = ContactSerializer()
+
+    def create(self, validated_data):
+        data_for_contact = validated_data.pop('contact')
+        data_for_prod_pl = validated_data.pop('title')
+        prod_plant = ProductionPlant.objects.create(title=data_for_prod_pl)
+        Contact.objects.create(**data_for_contact, production_plant=prod_plant)
+        return prod_plant
+
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get("title", instance.title)
+        new_email = validated_data.get('contact').get('email')
+        new_country = validated_data.get('contact').get('country')
+        new_city = validated_data.get('contact').get('city')
+        new_street = validated_data.get('contact').get('street')
+        new_number_home = validated_data.get('contact').get('number_home')
+        instance.contact.email = new_email
+        instance.contact.country = new_country
+        instance.contact.city = new_city
+        instance.contact.street = new_street
+        instance.contact.number_home = new_number_home
+        instance.contact.production_plant_id = validated_data.get("contact.production_plant_id",
+                                                                  instance.contact.production_plant_id)
+        instance.save()
+        return instance
 
     class Meta:
         model = ProductionPlant
-        fields = ('title', 'email', 'country', 'city', 'street', 'number_home')
+        fields = ('title', 'contact')
