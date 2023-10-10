@@ -1,13 +1,13 @@
 from rest_framework import generics
 
 from production_plant.models import ProductionPlant
-from production_plant.serializers import ProductionPlantSerializer
+from production_plant.serializers import ProductionPlantSerializer, ProductionPlantCreateSerializer
 from users.permissions import IsUserActive
 
 
 class ProductionPlantListView(generics.ListAPIView):
     queryset = ProductionPlant.objects.all()
-    serializer_class = ProductionPlantSerializer
+    serializer_class = ProductionPlantCreateSerializer
     permission_classes = [IsUserActive]
 
 
