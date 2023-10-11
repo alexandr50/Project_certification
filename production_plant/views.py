@@ -13,8 +13,8 @@ class ProductionPlantListView(generics.ListAPIView):
 
 class ProductionPlantCreateView(generics.CreateAPIView):
     queryset = ProductionPlant.objects.all()
-    serializer_class = ProductionPlantSerializer
-    permission_classes = [IsUserActive]
+    serializer_class = ProductionPlantCreateSerializer
+    # permission_classes = [IsUserActive]
 
 
 class ProductionPlantUpdateView(generics.UpdateAPIView):
