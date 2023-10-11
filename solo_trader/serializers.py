@@ -69,15 +69,13 @@ class SoleTraderCreateSerializer(serializers.ModelSerializer):
                 instance.supplier_rt = suppl_rt
             except:
                 raise ValueError('Ожидается id поставщика')
-        contact = Contact.objects.filter(email=instance.contact.email).first()
-        contact.update(data=validated_data.get('contact'))
+
         instance.contact.email = new_email
         instance.contact.country = new_country
         instance.contact.city = new_city
         instance.contact.street = new_street
         instance.contact.number_home = new_number_home
-        instance.contact.retail_network_id = validated_data.get("contact.retail_network_id",
-                                                                instance.contact.retail_network_id)
+        instance.contact.save()
         instance.save()
         return instance
 

@@ -60,6 +60,7 @@ class RetailNetworkCreateSerializer(serializers.ModelSerializer):
         instance.contact.number_home = new_number_home
         instance.contact.retail_network_id = validated_data.get("contact.retail_network_id",
                                                                 instance.contact.retail_network_id)
+        instance.contact.save()
         instance.save()
         return instance
 
