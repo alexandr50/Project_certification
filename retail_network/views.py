@@ -1,7 +1,8 @@
 from rest_framework import generics
 
 from retail_network.models import RetailNetwork
-from retail_network.serializers import RetailNetworkCreateSerializer, RetailNetworkSerializer
+from retail_network.serializers import RetailNetworkCreateSerializer, RetailNetworkSerializer, \
+    RetailNetworkUpdateSerializer
 from users.permissions import IsUserActive
 
 
@@ -17,7 +18,7 @@ class RetailNetworkCreateView(generics.CreateAPIView):
 
 class RetailNetworkUpdateView(generics.UpdateAPIView):
     queryset = RetailNetwork.objects.all()
-    serializer_class = RetailNetworkCreateSerializer
+    serializer_class = RetailNetworkUpdateSerializer
     permission_classes = [IsUserActive]
 
 class RetailNetworkDeleteView(generics.DestroyAPIView):

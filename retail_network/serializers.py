@@ -5,6 +5,7 @@ from contacts.models import Contact
 from contacts.serializers import ContactSerializer
 from production_plant.models import ProductionPlant
 from production_plant.serializers import ProductionPlantSerializer, ProductionPlantCreateSerializer
+from products.serializers import ProductSerializer
 
 from retail_network.models import RetailNetwork
 
@@ -27,6 +28,7 @@ class RetailNetworkSerializer(serializers.ModelSerializer):
 class RetailNetworkCreateSerializer(serializers.ModelSerializer):
     contact = ContactSerializer()
     supplier = ProductionPlantSerializer()
+    products = ProductSerializer(many=True, required=False)
 
     def create(self, validated_data):
         data_for_contact = validated_data.pop('contact')
@@ -39,6 +41,16 @@ class RetailNetworkCreateSerializer(serializers.ModelSerializer):
         retail_nw = RetailNetwork.objects.create(title=data_for_retail_nw, supplier=prod_pl)
         Contact.objects.create(**data_for_contact, retail_network=retail_nw)
         return retail_nw
+
+
+
+    class Meta:
+        model = RetailNetwork
+        fields = ('title', 'contact', 'supplier', 'products')
+
+class RetailNetworkUpdateSerializer(serializers.ModelSerializer):
+    contact = ContactSerializer()
+    supplier = ProductionPlantSerializer()
 
     def update(self, instance, validated_data):
         try:
@@ -67,3 +79,4 @@ class RetailNetworkCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = RetailNetwork
         fields = ('title', 'contact', 'supplier')
+
