@@ -5,6 +5,7 @@ from contacts.models import Contact
 from contacts.serializers import ContactSerializer
 from production_plant.models import ProductionPlant
 from production_plant.serializers import ProductionPlantSerializer, ProductionPlantCreateSerializer
+from products.models import Product
 from products.serializers import ProductSerializer
 
 from retail_network.models import RetailNetwork
@@ -34,12 +35,15 @@ class RetailNetworkCreateSerializer(serializers.ModelSerializer):
         data_for_contact = validated_data.pop('contact')
         data_for_retail_nw = validated_data.pop('title')
         data_for_prod_pl = validated_data.pop('supplier').pop('title')
+        data_for_product = validated_data.pop('products')
         try:
             prod_pl = get_object_or_404(ProductionPlant, pk=data_for_prod_pl)
         except:
             raise IndexError(f'нет такого завода в id {data_for_prod_pl}')
         retail_nw = RetailNetwork.objects.create(title=data_for_retail_nw, supplier=prod_pl)
         Contact.objects.create(**data_for_contact, retail_network=retail_nw)
+        for prod in data_for_product:
+            Product.objects.create(**prod)
         return retail_nw
 
 

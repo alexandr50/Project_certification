@@ -5,6 +5,8 @@ from django.db import IntegrityError
 from contacts.models import Contact
 from contacts.serializers import ContactSerializer
 from production_plant.models import ProductionPlant
+from products.models import Product
+from products.serializers import ProductSerializer
 
 
 class ProductionPlantSerializer(serializers.ModelSerializer):
@@ -15,14 +17,27 @@ class ProductionPlantSerializer(serializers.ModelSerializer):
 
 class ProductionPlantCreateSerializer(serializers.ModelSerializer):
     contact = ContactSerializer()
+    products = ProductSerializer(many=True, required=False)
 
     def create(self, validated_data):
         data_for_contact = validated_data.pop('contact')
         data_for_prod_pl = validated_data.pop('title')
+        data_for_product = validated_data.pop('products')
         prod_plant = ProductionPlant.objects.create(title=data_for_prod_pl)
         Contact.objects.create(**data_for_contact, production_plant=prod_plant)
+        for prod in data_for_product:
+            Product.objects.create(**prod)
+
         return prod_plant
 
+
+
+    class Meta:
+        model = ProductionPlant
+        fields = ('title', 'contact', 'products')
+
+class ProductionPlantUpdateSerializer(serializers.ModelSerializer):
+    contact = ContactSerializer()
     def update(self, instance, validated_data):
         instance.title = validated_data.get("title", instance.title)
         new_email = validated_data.get('contact').get('email')

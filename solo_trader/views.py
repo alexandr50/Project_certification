@@ -1,7 +1,7 @@
 from rest_framework import generics
 
 from solo_trader.models import SoleTrader
-from solo_trader.serializers import SoleTraderCreateSerializer, SoloTraderSerializer
+from solo_trader.serializers import SoleTraderCreateSerializer, SoloTraderSerializer, SoloTraderUpdateSerializer
 from users.permissions import IsUserActive
 
 
@@ -17,7 +17,7 @@ class SoleTraderCreateView(generics.CreateAPIView):
 
 class SoleTraderUpdateView(generics.UpdateAPIView):
     queryset = SoleTrader.objects.all()
-    serializer_class = SoleTraderCreateSerializer
+    serializer_class = SoloTraderUpdateSerializer
     permission_classes = [IsUserActive]
 
 class SoleTraderDeleteView(generics.DestroyAPIView):
