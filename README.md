@@ -48,6 +48,5 @@ Commercial_network это django rest_framework проект для управл
 
 <h1>Тестирование</h1>
 <ol>
-<li>Все endpoints проекта покрыты тестами.</li>
 <li>Проведена проверка синтаксиса и соблюдения PEP с помощью flake8.</li>
 </ol>
