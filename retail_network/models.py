@@ -15,8 +15,6 @@ class RetailNetwork(models.Model):
     def __str__(self):
         return self.title
 
-
     class Meta:
         verbose_name = 'розничная сеть'
         verbose_name_plural = 'розничные сети'
-

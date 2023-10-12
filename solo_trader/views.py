@@ -13,24 +13,26 @@ class SoleTradersListView(generics.ListAPIView):
     filterset_fields = ['contact__city', ]
     pagination_class = BaseNetworkPagination
 
+
 class SoleTraderCreateView(generics.CreateAPIView):
     queryset = SoleTrader.objects.all()
     serializer_class = SoleTraderCreateSerializer
     permission_classes = [IsUserActive]
+
 
 class SoleTraderUpdateView(generics.UpdateAPIView):
     queryset = SoleTrader.objects.all()
     serializer_class = SoloTraderUpdateSerializer
     permission_classes = [IsUserActive]
 
+
 class SoleTraderDeleteView(generics.DestroyAPIView):
     queryset = SoleTrader.objects.all()
     serializer_class = SoleTraderCreateSerializer
     permission_classes = [IsUserActive]
 
+
 class SoleTraderDetailView(generics.RetrieveAPIView):
     queryset = SoleTrader.objects.all()
     serializer_class = SoleTraderCreateSerializer
     permission_classes = [IsUserActive]
-
-

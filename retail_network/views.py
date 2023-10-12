@@ -14,24 +14,26 @@ class RetailNetworksListView(generics.ListAPIView):
     filterset_fields = ['contact__city', ]
     pagination_class = BaseNetworkPagination
 
+
 class RetailNetworkCreateView(generics.CreateAPIView):
     queryset = RetailNetwork.objects.all()
     serializer_class = RetailNetworkCreateSerializer
     permission_classes = [IsUserActive]
+
 
 class RetailNetworkUpdateView(generics.UpdateAPIView):
     queryset = RetailNetwork.objects.all()
     serializer_class = RetailNetworkUpdateSerializer
     permission_classes = [IsUserActive]
 
+
 class RetailNetworkDeleteView(generics.DestroyAPIView):
     queryset = RetailNetwork.objects.all()
     serializer_class = RetailNetworkCreateSerializer
     permission_classes = [IsUserActive]
 
+
 class RetailNetworkDetailView(generics.RetrieveAPIView):
     queryset = RetailNetwork.objects.all()
     serializer_class = RetailNetworkCreateSerializer
     permission_classes = [IsUserActive]
-
-

@@ -9,4 +9,3 @@ from .services import ContactCityFilter
 class ProductionPlantAdmin(admin.ModelAdmin):
     inlines = (ContactInline,)
     list_filter = ('title', ContactCityFilter,)
-
