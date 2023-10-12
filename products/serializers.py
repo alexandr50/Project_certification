@@ -20,13 +20,10 @@ class ProductListSerializer(serializers.ModelSerializer):
     def get_solo_trader_prod(self, obj):
         return [ob.title for ob in SoleTrader.objects.filter(id=obj.id)]
 
-
-
-
-
     class Meta:
         model = Product
         fields = ('title', 'model', 'release', 'production_plant_prod', 'retail_network_prod', 'solo_trader_prod')
+
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:

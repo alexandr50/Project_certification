@@ -14,6 +14,8 @@ def clear_debt(modeladmin, request, queryset):
 
 @admin.register(RetailNetwork)
 class RetailNetworkAdmin(admin.ModelAdmin):
+    list_display = ('title', 'supplier', 'debt')
+    list_display_links = ('supplier', 'title')
     inlines = (ContactInline,)
     list_filter = ('title', ContactCityFilter,)
     actions = [clear_debt]

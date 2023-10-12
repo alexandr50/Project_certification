@@ -1,7 +1,5 @@
-from django.http import Http404
 from rest_framework import serializers
-from rest_framework.generics import get_object_or_404
-from django.db import IntegrityError
+
 from contacts.models import Contact
 from contacts.serializers import ContactSerializer
 from production_plant.models import ProductionPlant
@@ -30,14 +28,14 @@ class ProductionPlantCreateSerializer(serializers.ModelSerializer):
 
         return prod_plant
 
-
-
     class Meta:
         model = ProductionPlant
         fields = ('title', 'contact', 'products')
 
+
 class ProductionPlantUpdateSerializer(serializers.ModelSerializer):
     contact = ContactSerializer()
+
     def update(self, instance, validated_data):
         instance.title = validated_data.get("title", instance.title)
         new_email = validated_data.get('contact').get('email')

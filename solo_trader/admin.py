@@ -5,7 +5,6 @@ from production_plant.services import ContactCityFilter
 from solo_trader.models import SoleTrader
 
 
-
 @admin.action(description='обнулить задолженность')
 def clear_debt(modeladmin, request, queryset):
     for obj in queryset:
@@ -18,6 +17,5 @@ class SoleTraderAdmin(admin.ModelAdmin):
     list_filter = ('title', ContactCityFilter)
     actions = [clear_debt]
 
+
 admin.site.register(SoleTrader, SoleTraderAdmin)
-
-
