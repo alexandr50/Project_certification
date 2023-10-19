@@ -26,7 +26,7 @@ class TestCustomUser(APITestCase):
             response.status_code,
             status.HTTP_201_CREATED, )
         self.assertEqual(CustomUser.objects.all().count(), 2)
-        self.assertEqual(CustomUser.objects.get(id=2).username, 'alexandr_test')
+        self.assertEqual(CustomUser.objects.all()[1].username, 'alexandr_test')
 
     def test_update_user(self):
         data = {'username': 'username', 'password': '123qwe'}
