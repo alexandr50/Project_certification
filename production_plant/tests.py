@@ -1,9 +1,9 @@
-from rest_framework.test import APITestCase
 from rest_framework import status
+from rest_framework.test import APITestCase
 
+from contacts.models import Contact
 from users.models import CustomUser
 from .models import ProductionPlant
-from contacts.models import Contact
 
 
 class ProductTestCase(APITestCase):
@@ -23,16 +23,16 @@ class ProductTestCase(APITestCase):
 
     def test_create_pr_pl(self):
         data_pr_pl = {'title': 'pr_pl',
-                            'contact':
-                                {'email': 'test@mail.ru',
-                                'country': 'Russia',
-                                'city': 'Ivanovo',
-                                'street': 'teststreet',
-                                'number_home': '12'},
-                            'products':
-                                [{'title': 'product',
-                                 'model': 'model',
-                                 'release': '2022-01-01'}]}
+                      'contact':
+                          {'email': 'test@mail.ru',
+                           'country': 'Russia',
+                           'city': 'Ivanovo',
+                           'street': 'teststreet',
+                           'number_home': '12'},
+                      'products':
+                          [{'title': 'product',
+                            'model': 'model',
+                            'release': '2022-01-01'}]}
         response = self.client.post(f'/production_plant/create/', data=data_pr_pl, format='json')
 
         self.assertEqual(
@@ -43,7 +43,6 @@ class ProductTestCase(APITestCase):
         self.assertEqual(ProductionPlant.objects.all().first().title, 'pr_pl')
 
     def test_detail_pr_pl(self):
-
         response = self.client.get(f'/production_plant/detail/{self.pr_pl.pk}/')
         self.assertEqual(
             response.status_code,
@@ -52,9 +51,7 @@ class ProductTestCase(APITestCase):
         self.assertEqual(ProductionPlant.objects.all().count(), 1)
         self.assertEqual(ProductionPlant.objects.all().first().title, 'pr_pl')
 
-
     def test_deleteil_product(self):
-
         response = self.client.delete(f'/production_plant/delete/{self.pr_pl.pk}/')
         self.assertEqual(
             response.status_code,
@@ -62,15 +59,12 @@ class ProductTestCase(APITestCase):
         )
         self.assertEqual(ProductionPlant.objects.all().count(), 0)
 
-
-    # def test_update_product(self):
-    #     data_product = {'title': 'product', 'model': 'model', 'release': '2022-01-01'}
-    #     product = Product.objects.create(**data_product)
-    #     data_product = {'title': 'update_product', 'model': 'update_model', 'release': '2022-01-02'}
-    #     response = self.client.put(f'/products/update/{product.pk}/', data=data_product)
-    #     self.assertEqual(
-    #         response.status_code,
-    #         status.HTTP_200_OK
-    #     )
-    #     self.assertEqual(Product.objects.all().count(), 1)
-    #     self.assertEqual(Product.objects.all().first().title, 'update_product')
+    def test_update_product(self):
+        data_update = {'title': 'update'}
+        response = self.client.put(f'/production_plant/update/{self.pr_pl.pk}/', data=data_update)
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK
+        )
+        self.assertEqual(ProductionPlant.objects.all().count(), 1)
+        self.assertEqual(ProductionPlant.objects.all().first().title, 'update')
